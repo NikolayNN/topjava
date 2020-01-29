@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static ru.javawebinar.topjava.util.UserMealsUtil.filteredByCycles;
+import static ru.javawebinar.topjava.util.UserMealsUtil.filteredByStreams;
 
 public class UserMealsUtilTest {
 
@@ -30,19 +32,14 @@ public class UserMealsUtilTest {
         LocalTime givenEnd = LocalTime.of(15, 0);
         int givenCalories = 2000;
 
-        List<UserMealWithExcess> actualCycles = UserMealsUtil.filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories);
-        List<UserMealWithExcess> actualStreams = UserMealsUtil.filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories);
-
-        actualCycles.forEach(System.out::println);
-
         List<UserMealWithExcess> expected = Arrays.asList(
                 new UserMealWithExcess(m1, false),
                 new UserMealWithExcess(m2, false),
                 new UserMealWithExcess(m5, true),
                 new UserMealWithExcess(m6, true));
 
-        assertEquals(expected, actualCycles);
-        assertEquals(expected, actualStreams);
+        assertEquals(expected, filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories));
+        assertEquals(expected, filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories));
     }
 
     @Test
@@ -61,16 +58,11 @@ public class UserMealsUtilTest {
         LocalTime givenEnd = LocalTime.of(7, 0);
         int givenCalories = 2000;
 
-        List<UserMealWithExcess> actualCycles = UserMealsUtil.filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories);
-        List<UserMealWithExcess> actualStreams = UserMealsUtil.filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories);
-
-        actualCycles.forEach(System.out::println);
-
         List<UserMealWithExcess> expected = Arrays.asList(
                 new UserMealWithExcess(m4, true));
 
-        assertEquals(expected, actualCycles);
-        assertEquals(expected, actualStreams);
+        assertEquals(expected, filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories));
+        assertEquals(expected, filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories));
     }
 
     @Test
@@ -89,18 +81,13 @@ public class UserMealsUtilTest {
         LocalTime givenEnd = LocalTime.of(10, 0);
         int givenCalories = 2000;
 
-        List<UserMealWithExcess> actualCycles = UserMealsUtil.filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories);
-        List<UserMealWithExcess> actualStreams = UserMealsUtil.filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories);
-
-        actualCycles.forEach(System.out::println);
-
         List<UserMealWithExcess> expected = Arrays.asList(
                 new UserMealWithExcess(m1, false),
                 new UserMealWithExcess(m4, true),
                 new UserMealWithExcess(m5, true));
 
-        assertEquals(expected, actualCycles);
-        assertEquals(expected, actualStreams);
+        assertEquals(expected, filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories));
+        assertEquals(expected, filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories));
     }
 
     @Test
@@ -119,15 +106,10 @@ public class UserMealsUtilTest {
         LocalTime givenEnd = LocalTime.of(5, 0);
         int givenCalories = 2000;
 
-        List<UserMealWithExcess> actualCycles = UserMealsUtil.filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories);
-        List<UserMealWithExcess> actualStreams = UserMealsUtil.filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories);
-
-        actualCycles.forEach(System.out::println);
-
         List<UserMealWithExcess> expected = Arrays.asList();
 
-        assertEquals(expected, actualCycles);
-        assertEquals(expected, actualStreams);
+        assertEquals(expected, filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories));
+        assertEquals(expected, filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories));
     }
 
     @Test
@@ -146,20 +128,15 @@ public class UserMealsUtilTest {
         LocalTime givenEnd = LocalTime.of(1, 0);
         int givenCalories = 2000;
 
-        List<UserMealWithExcess> actualCycles = UserMealsUtil.filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories);
-        List<UserMealWithExcess> actualStreams = UserMealsUtil.filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories);
-
-        actualCycles.forEach(System.out::println);
-
         List<UserMealWithExcess> expected = Arrays.asList(
                 new UserMealWithExcess(m4, true));
 
-        assertEquals(expected, actualCycles);
-        assertEquals(expected, actualStreams);
+        assertEquals(expected, filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories));
+        assertEquals(expected, filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories));
     }
 
     @Test
-    public void shouldReturnOneMealsBetween_7_and_15_ifOneEsceedMeal() {
+    public void shouldReturnOneMealsBetween_7_and_15_ifOneExceedMeal() {
         UserMeal m1 = new UserMeal(date(30, 10, 0), "Завтрак", 500);
         UserMeal m2 = new UserMeal(date(30, 13, 0), "Обед", 1000);
         UserMeal m3 = new UserMeal(date(30, 14, 0), "Ужин", 1000);
@@ -174,11 +151,6 @@ public class UserMealsUtilTest {
         LocalTime givenEnd = LocalTime.of(15, 0);
         int givenCalories = 2000;
 
-        List<UserMealWithExcess> actualCycles = UserMealsUtil.filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories);
-        List<UserMealWithExcess> actualStreams = UserMealsUtil.filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories);
-
-        actualCycles.forEach(System.out::println);
-
         List<UserMealWithExcess> expected = Arrays.asList(
                 new UserMealWithExcess(m1, true),
                 new UserMealWithExcess(m2, true),
@@ -188,26 +160,21 @@ public class UserMealsUtilTest {
                 new UserMealWithExcess(m7, true)
         );
 
-        assertEquals(expected, actualCycles);
-        assertEquals(expected, actualStreams);
+        assertEquals(expected, filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories));
+        assertEquals(expected, filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories));
     }
 
     @Test
     public void shouldReturnEmptyListIfGivrnListIsNUll() {
 
-        List<UserMeal> givenMeals = null;
-
         LocalTime givenStart = LocalTime.of(0, 0);
         LocalTime givenEnd = LocalTime.of(23, 59);
         int givenCalories = 2000;
 
-        List<UserMealWithExcess> actualCycles = UserMealsUtil.filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories);
-        List<UserMealWithExcess> actualStreams = UserMealsUtil.filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories);
-
         List<UserMealWithExcess> expected = Arrays.asList();
 
-        assertEquals(expected, actualCycles);
-        assertEquals(expected, actualStreams);
+        assertEquals(expected, filteredByCycles(null, givenStart, givenEnd, givenCalories));
+        assertEquals(expected, filteredByStreams(null, givenStart, givenEnd, givenCalories));
     }
 
     private LocalDateTime date(int dayOfMonth, int hour, int minute) {
