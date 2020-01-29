@@ -43,6 +43,32 @@ public class UserMealsUtilTest {
     }
 
     @Test
+    public void shouldReturnFourMealsBetween_7_and_15_notSorted() {
+        UserMeal m4 = new UserMeal(date(31, 0, 0), "Еда на граничное значение", 100);
+        UserMeal m3 = new UserMeal(date(30, 20, 0), "Ужин", 500);
+        UserMeal m5 = new UserMeal(date(31, 10, 0), "Завтрак", 1000);
+        UserMeal m2 = new UserMeal(date(30, 13, 0), "Обед", 1000);
+        UserMeal m7 = new UserMeal(date(31, 20, 0), "Ужин", 410);
+        UserMeal m6 = new UserMeal(date(31, 13, 0), "Обед", 500);
+        UserMeal m1 = new UserMeal(date(30, 10, 0), "Завтрак", 500);
+
+        List<UserMeal> givenMeals = Arrays.asList(m1, m2, m3, m4, m5, m6, m7);
+
+        LocalTime givenStart = LocalTime.of(7, 0);
+        LocalTime givenEnd = LocalTime.of(15, 0);
+        int givenCalories = 2000;
+
+        List<UserMealWithExcess> expected = Arrays.asList(
+                new UserMealWithExcess(m1, false),
+                new UserMealWithExcess(m2, false),
+                new UserMealWithExcess(m5, true),
+                new UserMealWithExcess(m6, true));
+
+        assertEquals(expected, filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories));
+        assertEquals(expected, filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories));
+    }
+
+    @Test
     public void shouldReturnOneMealsBetween_0_and_7() {
         UserMeal m1 = new UserMeal(date(30, 10, 0), "Завтрак", 500);
         UserMeal m2 = new UserMeal(date(30, 13, 0), "Обед", 1000);
@@ -163,6 +189,8 @@ public class UserMealsUtilTest {
         assertEquals(expected, filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories));
         assertEquals(expected, filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories));
     }
+
+
 
     @Test
     public void shouldReturnEmptyListIfGivrnListIsNUll() {
