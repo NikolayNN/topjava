@@ -33,10 +33,10 @@ public class UserMealsUtilTest {
         int givenCalories = 2000;
 
         List<UserMealWithExcess> expected = Arrays.asList(
-                new UserMealWithExcess(m1, false),
-                new UserMealWithExcess(m2, false),
-                new UserMealWithExcess(m5, true),
-                new UserMealWithExcess(m6, true));
+                userMealWithExcess(m1, false),
+                userMealWithExcess(m2, false),
+                userMealWithExcess(m5, true),
+                userMealWithExcess(m6, true));
 
         assertEquals(expected, filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories));
         assertEquals(expected, filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories));
@@ -59,10 +59,10 @@ public class UserMealsUtilTest {
         int givenCalories = 2000;
 
         List<UserMealWithExcess> expected = Arrays.asList(
-                new UserMealWithExcess(m1, false),
-                new UserMealWithExcess(m2, false),
-                new UserMealWithExcess(m5, true),
-                new UserMealWithExcess(m6, true));
+                userMealWithExcess(m1, false),
+                userMealWithExcess(m2, false),
+                userMealWithExcess(m5, true),
+                userMealWithExcess(m6, true));
 
         assertEquals(expected, filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories));
         assertEquals(expected, filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories));
@@ -85,7 +85,7 @@ public class UserMealsUtilTest {
         int givenCalories = 2000;
 
         List<UserMealWithExcess> expected = Arrays.asList(
-                new UserMealWithExcess(m4, true));
+                userMealWithExcess(m4, true));
 
         assertEquals(expected, filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories));
         assertEquals(expected, filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories));
@@ -108,9 +108,9 @@ public class UserMealsUtilTest {
         int givenCalories = 2000;
 
         List<UserMealWithExcess> expected = Arrays.asList(
-                new UserMealWithExcess(m1, false),
-                new UserMealWithExcess(m4, true),
-                new UserMealWithExcess(m5, true));
+                userMealWithExcess(m1, false),
+                userMealWithExcess(m4, true),
+                userMealWithExcess(m5, true));
 
         assertEquals(expected, filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories));
         assertEquals(expected, filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories));
@@ -155,7 +155,7 @@ public class UserMealsUtilTest {
         int givenCalories = 2000;
 
         List<UserMealWithExcess> expected = Arrays.asList(
-                new UserMealWithExcess(m4, true));
+                userMealWithExcess(m4, true));
 
         assertEquals(expected, filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories));
         assertEquals(expected, filteredByStreams(givenMeals, givenStart, givenEnd, givenCalories));
@@ -178,12 +178,12 @@ public class UserMealsUtilTest {
         int givenCalories = 2000;
 
         List<UserMealWithExcess> expected = Arrays.asList(
-                new UserMealWithExcess(m1, true),
-                new UserMealWithExcess(m2, true),
-                new UserMealWithExcess(m3, true),
-                new UserMealWithExcess(m5, true),
-                new UserMealWithExcess(m6, true),
-                new UserMealWithExcess(m7, true)
+                userMealWithExcess(m1, true),
+                userMealWithExcess(m2, true),
+                userMealWithExcess(m3, true),
+                userMealWithExcess(m5, true),
+                userMealWithExcess(m6, true),
+                userMealWithExcess(m7, true)
         );
 
         assertEquals(expected, filteredByCycles(givenMeals, givenStart, givenEnd, givenCalories));
@@ -207,5 +207,13 @@ public class UserMealsUtilTest {
 
     private LocalDateTime date(int dayOfMonth, int hour, int minute) {
         return LocalDateTime.of(2020, Month.JANUARY, dayOfMonth, hour, minute);
+    }
+
+    private UserMealWithExcess userMealWithExcess(UserMeal m, boolean excess){
+        return new UserMealWithExcess(
+                m.getDateTime(),
+                m.getDescription(),
+                m.getCalories(),
+                excess);
     }
 }

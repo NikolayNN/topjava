@@ -21,10 +21,10 @@ public class UserMealsUtil {
         final Map<LocalDate, Integer> caloriesDate = new HashMap<>();
         meals.forEach(meal -> caloriesDate.merge(meal.getDate(), meal.getCalories(), Integer::sum));
 
-        final List<UserMealWithExcess> result = new ArrayList<>(meals.size());
+        final List<UserMealWithExcess> result = new ArrayList<>();
         for (UserMeal m : meals) {
             if (TimeUtil.isBetweenInclusive(m.getTime(), startTime, endTime)) {
-                result.add(new UserMealWithExcess(m, caloriesDate.get(m.getDate()) > caloriesPerDay));
+                result.add(buildUserMealWithExcess(m, caloriesDate.get(m.getDate()) > caloriesPerDay));
             }
         }
         return result;
@@ -40,7 +40,15 @@ public class UserMealsUtil {
                         Collectors.summingInt(UserMeal::getCalories)));
         return meals.stream()
                 .filter(um -> TimeUtil.isBetweenInclusive(um.getDateTime().toLocalTime(), startTime, endTime))
-                .map(um -> new UserMealWithExcess(um, caloriesDate.get(um.getDateTime().toLocalDate()) > caloriesPerDay))
+                .map(um -> buildUserMealWithExcess(um, caloriesDate.get(um.getDateTime().toLocalDate()) > caloriesPerDay))
                 .collect(Collectors.toList());
+    }
+
+    private static UserMealWithExcess buildUserMealWithExcess(UserMeal m, boolean excess) {
+        return new UserMealWithExcess(
+                m.getDateTime(),
+                m.getDescription(),
+                m.getCalories(),
+                excess);
     }
 }
