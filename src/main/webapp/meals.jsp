@@ -8,11 +8,16 @@
 </head>
 <body>
 
-<p>meals works</p>
+<p>Еда</p>
 
 <table>
+    <tr>
+        <th>Время</th>
+        <th>Описание</th>
+        <th>Калории</th>
+    </tr>
     <c:forEach var="m" items="${requestScope.meals}">
-        <tr>
+        <tr style="${m.excess?'background-color: #fe6b40' : 'background-color: #b8c36b'}">
             <td>
                 <p>${f:formatLocalDateTime(m.dateTime, 'dd.MM.yyyy HH:mm')} </p>
             </td>
